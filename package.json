@@ -1,0 +1,19 @@
+{
+  "name": "camkart-backend",
+  "version": "1.0.0",
+  "description": "Backend app for Camkart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utsavkumar-280/camkart-backend.git"
+  },
+  "author": "Utsav kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/utsavkumar-280/camkart-backend/issues"
+  },
+  "homepage": "https://github.com/utsavkumar-280/camkart-backend#readme"
+}
