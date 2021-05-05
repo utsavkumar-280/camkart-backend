@@ -20,15 +20,13 @@ app.use(cors());
 dbConnection();
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Camkart Apis");
+  res.send("Welcome to CamKart Apis");
 });
 app.get("/hello", (req, res) => {
-  if (true) {
-    res.json({ success: true, message: "Hey, What's up?" });
-  } 
-  else {
-    throw Error("Urrey Bhai, error hogaya");
-  }
+  res.json({
+    success: true,
+    message: "Hey, What's up?"
+  });
 });
 
 app.use(route404Handler);
