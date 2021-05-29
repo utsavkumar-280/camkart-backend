@@ -42,8 +42,8 @@ const ProductSchema = new Schema({
 	},
 
 	availability: {
-		type: Boolean,
-		default: false,
+		type: Number,
+		required: "Available quantity of product required",
 	},
 
 	stars: {
