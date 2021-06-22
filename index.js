@@ -4,11 +4,12 @@ const cors = require("cors");
 const morgan = require("morgan");
 require("dotenv").config();
 
-// const users = require("./routes/users.router");
+const users = require("./routes/users.router");
 const products = require("./routes/products.router");
 // const carts = require("./routes/carts.router");
 // const wishlists = require("./routes/wishlists.router");
 
+const userAuthorization = require("./middlewares/userAuthorization");
 const dbConnection = require("./db/dbConnect.js");
 const route404Handler = require("./middlewares/route404Handler");
 const errorHandler = require("./middlewares/errorHandler");
@@ -33,10 +34,20 @@ app.get("/hello", (req, res) => {
 
 // app.use("/users", users);
 app.use("/products", products);
+app.use("/users", users);
+
+//DO NOT MOVE
+//User Authorization Middleware
+app.use(userAuthorization);
+//Protected Route(needs to be authenticated before getting accessed)
 // app.use("/wishlists", wishlists);
 // app.use("/carts", carts);
 
+//DO NOT MOVE THESE HANDLERS
+// 404 Route Handler
 app.use(route404Handler);
+
+//Error Handeler
 app.use(errorHandler);
 
 app.listen(PORT, () => {
