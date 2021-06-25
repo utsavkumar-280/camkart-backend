@@ -9,9 +9,11 @@ const getWishlist = async (req, res, next) => {
 			const newWishlist = new Wishlist({ userId, products: [] });
 			const savedNewWishlist = await newWishlist.save();
 			res.wishlist = savedNewWishlist;
+			next();
+		} else {
+			req.wishlist = wishlist;
+			next();
 		}
-		req.wishlist = wishlist;
-		next();
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
@@ -51,10 +53,10 @@ const modifyProductInWishlist = async (req, res) => {
 		);
 
 		if (isExistingProduct) {
-			wishlist = wishlist.products.map((prod) => {
-				if (prod.product === updateDetails._id) {
-					prod.isActive = !prod.isActive;
-				}
+			wishlist.products = wishlist.products.map((prod) => {
+				prod.product === updateDetails._id
+					? { ...prod, isActive: !prod.isActive }
+					: prod;
 			});
 		} else {
 			wishlist.products.push({ product: updateDetails._id, isActive: true });
