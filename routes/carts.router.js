@@ -13,3 +13,5 @@ router.use(getCart);
 router.route("/").get(populateCart).post(modifyProductInCart);
 
 router.route("/address").post(updateAddress);
+
+module.exports = router;
