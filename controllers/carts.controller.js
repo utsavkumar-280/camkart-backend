@@ -87,7 +87,7 @@ const modifyProductInCart = async (req, res) => {
 		});
 	}
 };
-const upateAddress = async (req, res) => {
+const updateAddress = async (req, res) => {
 	try {
 		const addressUpdateDetails = req.body;
 		let cart = req.cart;
@@ -121,5 +121,5 @@ module.exports = {
 	getCart,
 	populateCart,
 	modifyProductInCart,
-	upateAddress,
+	updateAddress,
 };
