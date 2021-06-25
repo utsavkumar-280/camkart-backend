@@ -6,8 +6,10 @@ require("dotenv").config();
 
 const users = require("./routes/users.router");
 const products = require("./routes/products.router");
-// const carts = require("./routes/carts.router");
-// const wishlists = require("./routes/wishlists.router");
+const addresses = require("./routes/addresses.router");
+const carts = require("./routes/carts.router");
+const wishlists = require("./routes/wishlists.router");
+const orders = require("./routes/order.router");
 
 const userAuthorization = require("./middlewares/userAuthorization");
 const dbConnection = require("./db/dbConnect.js");
@@ -40,8 +42,10 @@ app.use("/users", users);
 //User Authorization Middleware
 app.use(userAuthorization);
 //Protected Route(needs to be authenticated before getting accessed)
-// app.use("/wishlists", wishlists);
-// app.use("/carts", carts);
+app.use("/addresses", addresses);
+app.use("/wishlists", wishlists);
+app.use("/carts", carts);
+app.use("/orders", orders);
 
 //DO NOT MOVE THESE HANDLERS
 // 404 Route Handler
