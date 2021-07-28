@@ -39,13 +39,12 @@ app.use("/products", products);
 app.use("/users", users);
 
 //DO NOT MOVE
-//User Authorization Middleware
-app.use(userAuthorization);
+
 //Protected Route(needs to be authenticated before getting accessed)
-app.use("/addresses", addresses);
-app.use("/wishlists", wishlists);
-app.use("/carts", carts);
-app.use("/orders", orders);
+app.use("/addresses", userAuthorization, addresses);
+app.use("/wishlists", userAuthorization, wishlists);
+app.use("/carts", userAuthorization, carts);
+app.use("/orders", userAuthorization, orders);
 
 //DO NOT MOVE THESE HANDLERS
 // 404 Route Handler
