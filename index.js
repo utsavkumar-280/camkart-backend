@@ -9,7 +9,7 @@ const products = require("./routes/products.router");
 const addresses = require("./routes/addresses.router");
 const carts = require("./routes/carts.router");
 const wishlists = require("./routes/wishlists.router");
-const orders = require("./routes/order.router");
+const orders = require("./routes/orders.router");
 
 const userAuthorization = require("./middlewares/userAuthorization");
 const dbConnection = require("./db/dbConnect.js");
