@@ -43,6 +43,7 @@ const populateCart = async (req, res) => {
 		});
 	}
 };
+
 const modifyProductInCart = async (req, res) => {
 	try {
 		const updateDetails = req.body;
@@ -58,7 +59,7 @@ const modifyProductInCart = async (req, res) => {
 			);
 		} else {
 			cart.products.push({
-				productId: updateDetails._id,
+				product: updateDetails._id,
 				quantity: 1,
 				isActive: true,
 			});
@@ -87,6 +88,7 @@ const modifyProductInCart = async (req, res) => {
 		});
 	}
 };
+
 const updateAddress = async (req, res) => {
 	try {
 		const addressUpdateDetails = req.body;
