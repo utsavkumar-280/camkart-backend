@@ -32,8 +32,10 @@ const populateCart = async (req, res) => {
 		const activeProductsInCart = cart.products.filter((prod) => prod.isActive);
 
 		res.status(200).json({
-			response: activeProductsInCart,
-			address: cart.address,
+			response: {
+				products: activeProductsInCart,
+				address: cart.address,
+			},
 		});
 	} catch (error) {
 		console.error(error);

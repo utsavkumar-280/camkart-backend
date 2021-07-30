@@ -8,10 +8,12 @@ const getWishlist = async (req, res, next) => {
 		if (!wishlist) {
 			const newWishlist = new Wishlist({ userId, products: [] });
 			const savedNewWishlist = await newWishlist.save();
-			res.wishlist = savedNewWishlist;
+			req.wishlist = savedNewWishlist;
+			console.log("1");
 			next();
 		} else {
 			req.wishlist = wishlist;
+			console.log("2");
 			next();
 		}
 	} catch (error) {
@@ -26,6 +28,7 @@ const getWishlist = async (req, res, next) => {
 const populateWishlist = async (req, res) => {
 	try {
 		let wishlist = req.wishlist;
+		console.log(wishlist);
 		wishlist = await wishlist
 			.populate({ path: "products.product" })
 			.execPopulate();
@@ -33,8 +36,8 @@ const populateWishlist = async (req, res) => {
 		const activeProductsInWishlist = wishlist.products.filter(
 			(prod) => prod.isActive
 		);
-
-		res.status(200).json({ response: activeProductsInWishlist });
+		console.log(activeProductsInWishlist);
+		res.status(200).json({ response: { products: activeProductsInWishlist } });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
@@ -48,16 +51,20 @@ const modifyProductInWishlist = async (req, res) => {
 	try {
 		const updateDetails = req.body;
 		let wishlist = req.wishlist;
-		const isExistingProduct = wishlist.products.find(
-			(prod) => prod.product === updateDetails.product
-		);
 
+		console.log({ updateDetails });
+		console.log(wishlist);
+
+		const isExistingProduct = wishlist.products.find(
+			(prod) => prod.product == updateDetails._id
+		);
+		console.log({ isExistingProduct });
 		if (isExistingProduct) {
-			wishlist.products = wishlist.products.map((prod) => {
-				prod.product === updateDetails._id
-					? { ...prod, isActive: !prod.isActive }
-					: prod;
-			});
+			for (let prod of wishlist.products) {
+				if (updateDetails._id == prod.product) {
+					prod.isActive = !prod.isActive;
+				}
+			}
 		} else {
 			wishlist.products.push({ product: updateDetails._id, isActive: true });
 		}
@@ -68,12 +75,12 @@ const modifyProductInWishlist = async (req, res) => {
 				path: "products.product",
 			})
 			.execPopulate();
-
+		console.log(modifiedWishlist);
 		const activeProductsInWishlist = modifiedWishlist.products.filter(
 			(prod) => prod.isActive
 		);
-
-		res.status(201).json({ response: activeProductsInWishlist });
+		console.log(activeProductsInWishlist);
+		res.status(201).json({ response: { products: activeProductsInWishlist } });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
