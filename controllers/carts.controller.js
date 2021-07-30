@@ -50,12 +50,14 @@ const modifyProductInCart = async (req, res) => {
 		const cart = req.cart;
 
 		const isExistingProduct = cart.products.find(
-			(prod) => prod.product === updateDetails._id
+			(prod) => prod.product == updateDetails._id
 		);
+
+		console.log({ isExistingProduct });
 
 		if (isExistingProduct) {
 			cart.products = cart.products.map((prod) =>
-				prod.product === updateDetails._id ? extend(prod, updateDetails) : prod
+				prod.product == updateDetails._id ? extend(prod, updateDetails) : prod
 			);
 		} else {
 			cart.products.push({
@@ -66,6 +68,7 @@ const modifyProductInCart = async (req, res) => {
 		}
 
 		const modifiedCart = await cart.save();
+
 		const savedModifiedCart = await modifiedCart
 			.populate({ path: "products.product" })
 			.execPopulate();

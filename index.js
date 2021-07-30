@@ -42,8 +42,8 @@ app.use("/users", users);
 
 //Protected Route(needs to be authenticated before getting accessed)
 app.use("/addresses", userAuthorization, addresses);
-app.use("/wishlists", userAuthorization, wishlists);
-app.use("/carts", userAuthorization, carts);
+app.use("/wishlist", userAuthorization, wishlists);
+app.use("/cart", userAuthorization, carts);
 app.use("/orders", userAuthorization, orders);
 
 //DO NOT MOVE THESE HANDLERS

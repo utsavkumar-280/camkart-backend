@@ -13,15 +13,15 @@ const CartSchema = new Schema(
 				product: {
 					type: Schema.Types.ObjectId,
 					ref: "Product",
-					quantity: Number,
-					isActive: Boolean,
 				},
+				quantity: Number,
+				isActive: Boolean,
 			},
 		],
 		address: {
 			type: Schema.Types.ObjectId,
 			ref: "Address",
-			required: "Address id is required",
+			default: null,
 		},
 	},
 	{
