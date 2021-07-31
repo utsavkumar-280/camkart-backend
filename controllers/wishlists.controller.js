@@ -9,11 +9,11 @@ const getWishlist = async (req, res, next) => {
 			const newWishlist = new Wishlist({ userId, products: [] });
 			const savedNewWishlist = await newWishlist.save();
 			req.wishlist = savedNewWishlist;
-			console.log("1");
+
 			next();
 		} else {
 			req.wishlist = wishlist;
-			console.log("2");
+
 			next();
 		}
 	} catch (error) {
@@ -28,7 +28,7 @@ const getWishlist = async (req, res, next) => {
 const populateWishlist = async (req, res) => {
 	try {
 		let wishlist = req.wishlist;
-		console.log(wishlist);
+
 		wishlist = await wishlist
 			.populate({ path: "products.product" })
 			.execPopulate();
@@ -36,7 +36,7 @@ const populateWishlist = async (req, res) => {
 		const activeProductsInWishlist = wishlist.products.filter(
 			(prod) => prod.isActive
 		);
-		console.log(activeProductsInWishlist);
+
 		res.status(200).json({ response: { products: activeProductsInWishlist } });
 	} catch (error) {
 		console.error(error);
@@ -52,13 +52,10 @@ const modifyProductInWishlist = async (req, res) => {
 		const updateDetails = req.body;
 		let wishlist = req.wishlist;
 
-		console.log({ updateDetails });
-		console.log(wishlist);
-
 		const isExistingProduct = wishlist.products.find(
 			(prod) => prod.product == updateDetails._id
 		);
-		console.log({ isExistingProduct });
+
 		if (isExistingProduct) {
 			for (let prod of wishlist.products) {
 				if (updateDetails._id == prod.product) {
@@ -75,11 +72,11 @@ const modifyProductInWishlist = async (req, res) => {
 				path: "products.product",
 			})
 			.execPopulate();
-		console.log(modifiedWishlist);
+
 		const activeProductsInWishlist = modifiedWishlist.products.filter(
 			(prod) => prod.isActive
 		);
-		console.log(activeProductsInWishlist);
+
 		res.status(201).json({ response: { products: activeProductsInWishlist } });
 	} catch (error) {
 		console.error(error);

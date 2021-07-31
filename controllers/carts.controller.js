@@ -55,8 +55,6 @@ const modifyProductInCart = async (req, res) => {
 			(prod) => prod.product == updateDetails._id
 		);
 
-		console.log({ isExistingProduct });
-
 		if (isExistingProduct) {
 			cart.products = cart.products.map((prod) =>
 				prod.product == updateDetails._id ? extend(prod, updateDetails) : prod

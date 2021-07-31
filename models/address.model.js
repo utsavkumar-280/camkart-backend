@@ -15,7 +15,7 @@ const AddressSchema = new Schema({
 		required: "Building Name is required",
 	},
 	pincode: {
-		type: Number,
+		type: String,
 		required: "Pincode is required",
 	},
 	city: {
@@ -27,7 +27,7 @@ const AddressSchema = new Schema({
 		required: "State is required",
 	},
 	phone: {
-		type: Number,
+		type: String,
 		required: "Phone number is required",
 	},
 });
