@@ -6,9 +6,10 @@ const createAddress = async (req, res) => {
 		const userId = req.user._id;
 		const addressDetails = req.body;
 		const NewAddress = new Address({ userId, ...addressDetails });
-		const savedNewAddress = await NewAddress.save();
+		await NewAddress.save();
+		const updatedAddresses = await Address.find({ userId: userId });
 
-		res.status(201).json({ response: savedNewAddress });
+		res.status(201).json({ response: updatedAddresses });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
@@ -21,7 +22,8 @@ const createAddress = async (req, res) => {
 const getAllAddresses = async (req, res) => {
 	try {
 		const userId = req.user._id;
-		const addresses = await Address.find({ userId });
+		const addresses = await Address.find({ userId: userId });
+		console.log({ addresses });
 
 		res.status(200).json({ response: addresses });
 	} catch (error) {
@@ -33,7 +35,7 @@ const getAllAddresses = async (req, res) => {
 	}
 };
 
-const getAddress = async (req, res) => {
+const getAddress = async (req, res, next, id) => {
 	try {
 		const userId = req.user._id;
 		const address = await Address.findOne({ _id: id, userId });
@@ -58,14 +60,16 @@ const getAddress = async (req, res) => {
 
 const updateAddress = async (req, res) => {
 	try {
+		const userId = req.user._id;
 		const address = req.address;
 		const addressDetails = req.body;
 		const updatedAddress = extend(address, addressDetails);
-		const savedUpdatedAddress = await updatedAddress.save();
+		await updatedAddress.save();
+		const updatedAddresses = await Address.find({ userId: userId });
 
 		res.status(200).json({
 			message: "Address updated",
-			response: savedUpdatedAddress,
+			response: updatedAddresses,
 		});
 	} catch (error) {
 		console.error(error);
@@ -78,12 +82,14 @@ const updateAddress = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
 	try {
+		const userId = req.user._id;
 		const address = req.address;
-		const deletedAddress = await address.remove();
+		await address.remove();
+		const updatedAddresses = await Address.find({ userId: userId });
 
 		res.status(200).json({
 			message: "Address deleted",
-			response: deletedAddress,
+			response: updatedAddresses,
 		});
 	} catch (error) {
 		console.error(error);
