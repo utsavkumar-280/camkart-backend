@@ -14,7 +14,7 @@ const createOrder = async (req, res) => {
 		cart.products = cart.products.filter(
 			(prod) =>
 				!orderDetails.products.find((cartProd) => {
-					return cartProd.prod.toString() === prod.productd.toString();
+					return cartProd.product.toString() === prod.product.toString();
 				})
 		);
 		await cart.save();

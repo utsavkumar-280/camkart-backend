@@ -15,19 +15,9 @@ const OrderSchema = new Schema(
 					ref: "Product",
 				},
 				quantity: { type: Number, default: 1 },
-				payment: {
-					amount: { type: Number, default: 0 },
-					offer: { type: Number, default: 0 },
-				},
 			},
 		],
 		payment: {
-			mrp: { type: Number, default: 0 },
-			discount: { type: Number, default: 0 },
-			charges: {
-				delivery: { type: Number, default: 0 },
-				tax: { type: Number, default: 0 },
-			},
 			totalAmount: { type: Number, default: 0 },
 		},
 		address: {
